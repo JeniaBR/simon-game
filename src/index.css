@@ -5,11 +5,37 @@ body {
   background-color: #324E5C
 }
 
-
 .tiles-main-container {
+  margin: 0 auto;
   display: grid;
-  justify-content: center;
-  max-width: 80vh;
+  grid-template-columns: 10% 1fr 1fr 10%;
+  grid-template-rows: 10% 1fr 1fr 10%;
+  
+  width: 80vh;
   height: 80vh;
-  background-color: #DBDEB5
+  background-color: #DBDEB5;
+}
+
+.green-tile {
+  background-color: #45B09C;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+}
+
+.red-tile {
+  background-color: #F73955;
+  grid-column: 3 / 4;
+  grid-row: 2 / 3;
+}
+
+.yellow-tile {
+  background-color: #EEC84C;
+  grid-column: 2 / 3;
+  grid-row: 3 / 4;
+}
+
+.blue-tile {
+  background-color: #2A96BD;
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
 }
