@@ -59,25 +59,33 @@ class App extends Component {
       this.setState({
         startGame: true
       });
-
     }
   }
 
-  randomClick = () => {
-    let random = Math.floor(Math.random() * 4) + 1;
-    let currentStep = this.state.step;
+  handlePlayer = (tile) => {
     let currentSequence = this.state.simonSequence.slice();
+    let currentPlayerStep = this.state.playerStep;
 
-    currentSequence[currentStep] = random;
-    currentStep++;
+    this.playSound(tile);
 
-    this.setState({
-      simonSequence: currentSequence,
-      step: currentStep,
-      player: true
-    });
+    if(tile != currentSequence[currentPlayerStep]) {
+      console.log('You are wrong :(');
+      // Do some animation to inform the user that he is wrong
+      // if we are not in strict mode, replay the sequence to the user
+      if(!this.state.strictMode) {
+        console.log('NOT STRICT','replay the sequence again');
+      } else {
+        // we are in strict mode, reset the steps, the game resets and starts again
+        console.log('STRICT','reset game, start all over');
+      }
+    } else if (tile === currentSequence[currentPlayerStep]) {
+      console.log('Correct :)');
+      // we need to promote the step and replay all the sequence + new step
+    }
+  }
 
-    switch (random) {
+  playSound = (tileNumber) => {
+    switch (tileNumber) {
       case 1:
         greenSound.currentTime = 0;
         greenSound.play();
@@ -98,10 +106,28 @@ class App extends Component {
     }
   }
 
+  randomClick = () => {
+    let random = Math.floor(Math.random() * 4) + 1;
+    let currentStep = this.state.step;
+    let currentSequence = this.state.simonSequence.slice();
+
+    currentSequence[currentStep] = random;
+    currentStep++;
+
+    this.setState({
+      simonSequence: currentSequence,
+      step: currentStep,
+      player: true
+    });
+
+    this.playSound(random);
+
+  }
+
   render() {
     return (
       <div className="App">
-        <Tiles/>
+        <Tiles handlePlayer={this.handlePlayer}/>
         <Controller 
           power={this.state.power} 
           strict={this.state.strictMode} 
