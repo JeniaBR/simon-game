@@ -63,6 +63,7 @@ class App extends Component {
   }
 
   handlePlayer = (tile) => {
+    if(!this.state.player) return;
     let currentSequence = this.state.simonSequence.slice();
     let currentPlayerStep = this.state.playerStep;
 
