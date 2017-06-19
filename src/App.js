@@ -69,7 +69,7 @@ class App extends Component {
 
     this.playSound(tile);
 
-    if(tile != currentSequence[currentPlayerStep]) {
+    if(tile !== currentSequence[currentPlayerStep]) {
       console.log('You are wrong :(');
       // Do some animation to inform the user that he is wrong
       // if we are not in strict mode, replay the sequence to the user
@@ -79,9 +79,21 @@ class App extends Component {
         // we are in strict mode, reset the steps, the game resets and starts again
         console.log('STRICT','reset game, start all over');
       }
-    } else if (tile === currentSequence[currentPlayerStep]) {
-      console.log('Correct :)');
-      // we need to promote the step and replay all the sequence + new step
+    } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep < currentSequence.length - 1) {
+      console.log('correct step!');
+      // we need to promote the step if user click on right tile
+      this.setState({
+        playerStep: currentPlayerStep + 1
+      });
+
+    } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep === currentSequence.length - 1) {
+      console.log('correct! add new random tile :)')
+      // if the user accomplished correct sequence replay all the sequence + new step
+      this.setState({
+        player: false,
+        playerStep: 0
+      });
+      this.replaySequence();
     }
   }
 
@@ -105,6 +117,13 @@ class App extends Component {
         break;
       default:
     }
+  }
+
+  replaySequence = () => {
+    let currentSequence = this.state.simonSequence.slice();
+    let currentPlayerStep = this.state.playerStep;
+    currentSequence.forEach(this.playSound);
+    this.randomClick();
   }
 
   randomClick = () => {
