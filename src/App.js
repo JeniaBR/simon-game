@@ -121,9 +121,17 @@ class App extends Component {
 
   replaySequence = () => {
     let currentSequence = this.state.simonSequence.slice();
-    let currentPlayerStep = this.state.playerStep;
-    currentSequence.forEach(this.playSound);
-    this.randomClick();
+    let timeToTrigger = this.state.step + 1;
+    currentSequence.forEach((val, i) => {
+      setTimeout(()=>{
+        this.playSound(val)
+        console.log(`playing: ${val}`);
+      }, (i + 1)*600);
+    });
+    
+    setTimeout(() => {
+      this.randomClick();
+    }, timeToTrigger*600);
   }
 
   randomClick = () => {
