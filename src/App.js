@@ -115,6 +115,7 @@ class App extends Component {
   }
 
   playSound = (tileNumber) => {
+    this.handleAnimation(tileNumber);
     switch (tileNumber) {
       case 1:
         greenSound.currentTime = 0;
