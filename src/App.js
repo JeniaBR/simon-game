@@ -19,7 +19,9 @@ class App extends Component {
       startGame: false,
       step: 0,
       playerStep: 0,
-      simonSequence: []
+      simonSequence: [],
+      animation: false,
+      animateTile: 0
     };
   }
 
@@ -60,6 +62,21 @@ class App extends Component {
         startGame: true
       });
     }
+  }
+
+  handleAnimation = (tile) => {
+    if(!this.state.power) return;
+
+    this.setState({
+      animation: true,
+      animateTile: tile
+    });
+
+    setTimeout(() => {
+      this.setState({
+        animation: false
+      })
+    }, 250);
   }
 
   handlePlayer = (tile) => {
@@ -155,7 +172,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Tiles handlePlayer={this.handlePlayer}/>
+        <Tiles animateTile={this.state.animateTile} animate={this.state.animation} handleAnimation={this.handleAnimation} handlePlayer={this.handlePlayer}/>
         <Controller 
           power={this.state.power} 
           strict={this.state.strictMode} 

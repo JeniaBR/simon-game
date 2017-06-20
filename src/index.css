@@ -39,3 +39,8 @@ body {
   grid-column: 3 / 4;
   grid-row: 3 / 4;
 }
+
+.animation {
+  background-color: gold;
+  transition: all 250ms linear;
+}
