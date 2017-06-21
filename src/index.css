@@ -44,3 +44,8 @@ body {
   background-color: gold;
   transition: all 250ms linear;
 }
+
+.wrong-tile-animation {
+  background-color: red;
+  transition: all 250ms linear;
+}
