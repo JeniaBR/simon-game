@@ -38,9 +38,13 @@ class App extends Component {
         power: false,
         strictMode: false,
         startGame: false,
+        replay: false,
         step: 0,
         playerStep: 0,
-        simonSequence: []
+        simonSequence: [],
+        animation: false,
+        wrongAnimation: false,
+        animateTile: 0
       });
     }
   }
@@ -61,7 +65,8 @@ class App extends Component {
     if(this.state.power === true && this.state.startGame === false) {
       this.randomClick();
       this.setState({
-        startGame: true
+        startGame: true,
+        wrongAnimation: false
       });
     }
   }
@@ -106,6 +111,21 @@ class App extends Component {
       } else {
         // we are in strict mode, reset the steps, the game resets and starts again
         console.log('STRICT','reset game, start all over');
+        this.setState({
+          player: false,
+          power: true,
+          strictMode: true,
+          startGame: false,
+          replay: false,
+          step: 0,
+          playerStep: 0,
+          simonSequence: [],
+          animation: true,
+          wrongAnimation: true,
+          animateTile: 0
+        });
+
+        setTimeout(()=>this.handleStartGame(),2000);
       }
     } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep < currentSequence.length - 1) {
       console.log('correct step!');
