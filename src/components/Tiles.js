@@ -1,11 +1,11 @@
 import React from 'react';
 
 
-class Tiles extends React.Component {
+class Tiles extends React.Component { 
   render(){
-    console.log(this.props.animate);
+    console.log(this.props.wrongAnimation);
     return(
-      <div className="tiles-main-container">
+      <div className={`tiles-main-container ${this.props.animate && this.props.wrongAnimation ? 'wrong-tile-animation' : ''}`}>
         <div className={`green-tile ${this.props.animate && this.props.animateTile === 1 ? 'animation' : ''}`} onClick={()=>{this.props.handlePlayer(1);this.props.handleAnimation(1)}}></div>
         <div className={`red-tile ${this.props.animate && this.props.animateTile === 2 ? 'animation' : ''}`} onClick={()=>{this.props.handlePlayer(2);this.props.handleAnimation(2)}}></div>
         <div className={`yellow-tile ${this.props.animate && this.props.animateTile === 3 ? 'animation' : ''}`} onClick={()=>{this.props.handlePlayer(3);this.props.handleAnimation(3)}}></div>

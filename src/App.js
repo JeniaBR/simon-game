@@ -17,10 +17,12 @@ class App extends Component {
       power: false,
       strictMode: false,
       startGame: false,
+      replay: false,
       step: 0,
       playerStep: 0,
       simonSequence: [],
       animation: false,
+      wrongAnimation: false,
       animateTile: 0
     };
   }
@@ -92,6 +94,15 @@ class App extends Component {
       // if we are not in strict mode, replay the sequence to the user
       if(!this.state.strictMode) {
         console.log('NOT STRICT','replay the sequence again');
+        this.setState({
+          player: false,
+          animation: true,
+          wrongAnimation: true,
+          playerStep: 0,
+          replay: true
+        });
+        this.handleAnimation();
+        setTimeout(()=>this.replaySequence(),500);
       } else {
         // we are in strict mode, reset the steps, the game resets and starts again
         console.log('STRICT','reset game, start all over');
@@ -100,7 +111,8 @@ class App extends Component {
       console.log('correct step!');
       // we need to promote the step if user click on right tile
       this.setState({
-        playerStep: currentPlayerStep + 1
+        playerStep: currentPlayerStep + 1,
+        wrongAnimation: false
       });
 
     } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep === currentSequence.length - 1) {
@@ -108,7 +120,8 @@ class App extends Component {
       // if the user accomplished correct sequence replay all the sequence + new step
       this.setState({
         player: false,
-        playerStep: 0
+        playerStep: 0,
+        wrongAnimation: false
       });
       this.replaySequence();
     }
@@ -138,6 +151,9 @@ class App extends Component {
   }
 
   replaySequence = () => {
+    this.setState({
+      wrongAnimation: false
+    });
     let currentSequence = this.state.simonSequence.slice();
     let timeToTrigger = this.state.step + 1;
     currentSequence.forEach((val, i) => {
@@ -156,6 +172,15 @@ class App extends Component {
     let random = Math.floor(Math.random() * 4) + 1;
     let currentStep = this.state.step;
     let currentSequence = this.state.simonSequence.slice();
+    let replayStatus = this.state.replay;
+
+    if(replayStatus){
+      this.setState({
+        replay: false,
+        player: true
+      });
+      return;
+    }
 
     currentSequence[currentStep] = random;
     currentStep++;
@@ -173,10 +198,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Tiles animateTile={this.state.animateTile} animate={this.state.animation} handleAnimation={this.handleAnimation} handlePlayer={this.handlePlayer}/>
+        <Tiles 
+          animateTile={this.state.animateTile}
+          animate={this.state.animation}
+          wrongAnimation={this.state.wrongAnimation}
+          handleAnimation={this.handleAnimation}
+          handlePlayer={this.handlePlayer}/>
         <Controller 
           power={this.state.power} 
           strict={this.state.strictMode} 
+          step={this.state.step}
           handlePower={this.handlePower} 
           handleStrict={this.handleStrict}
           handleStartGame={this.handleStartGame}/>
