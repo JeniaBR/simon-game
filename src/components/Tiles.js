@@ -3,7 +3,6 @@ import React from 'react';
 
 class Tiles extends React.Component { 
   render(){
-    console.log(this.props.wrongAnimation);
     return(
       <div className={`tiles-main-container ${this.props.animate && this.props.wrongAnimation ? 'wrong-tile-animation' : ''}`}>
         <div className={`green-tile ${this.props.animate && this.props.animateTile === 1 ? 'animation' : ''}`} onClick={()=>{this.props.handlePlayer(1);this.props.handleAnimation(1)}}></div>

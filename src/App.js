@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal';
 import Tiles from './components/Tiles';
 import Controller from './components/Controller';
 import './App.css';
@@ -7,6 +8,17 @@ let greenSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp
 let redSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
 let yellowSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
 let blueSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
+
+const customStyles = {
+  content : {
+    top          : '50%',
+    left         : '50%',
+    right        : 'auto',
+    bottom       : 'auto',
+    marginRight  : '-50%',
+    transform    : 'translate(-50%, -50%)'
+  }
+};
 
 class App extends Component {
   constructor(){
@@ -23,8 +35,21 @@ class App extends Component {
       simonSequence: [],
       animation: false,
       wrongAnimation: false,
-      animateTile: 0
+      animateTile: 0,
+      modalIsOpen: false
     };
+  }
+
+  openModal = () => {
+    this.setState({
+      modalIsOpen: true
+    });
+  }
+
+  closeModal = () => {
+    this.setState({
+      modalIsOpen: false
+    });
   }
 
   handlePower = () => {
@@ -135,8 +160,13 @@ class App extends Component {
         wrongAnimation: false
       });
 
+    } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep === 4) {
+      // If you are here you won :)
+      // Show a Modal with replay button
+      console.log('You Won!');
+      this.openModal();
     } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep === currentSequence.length - 1) {
-      console.log('correct! add new random tile :)')
+      console.log('correct! add new random tile :)');
       // if the user accomplished correct sequence replay all the sequence + new step
       this.setState({
         player: false,
@@ -144,7 +174,7 @@ class App extends Component {
         wrongAnimation: false
       });
       this.replaySequence();
-    }
+    } 
   }
 
   playSound = (tileNumber) => {
@@ -178,8 +208,7 @@ class App extends Component {
     let timeToTrigger = this.state.step + 1;
     currentSequence.forEach((val, i) => {
       setTimeout(()=>{
-        this.playSound(val)
-        console.log(`playing: ${val}`);
+        this.playSound(val);
       }, (i + 1)*600);
     });
     
@@ -218,6 +247,13 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Modal
+          isOpen={this.state.modalIsOpen}
+          onRequestClose={this.closeModal}
+          contentLabel=''
+          style={customStyles}>
+          <button onClick={this.closeModal}>Close this Modal!</button>
+        </Modal>
         <Tiles 
           animateTile={this.state.animateTile}
           animate={this.state.animation}
