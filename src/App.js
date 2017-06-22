@@ -48,8 +48,19 @@ class App extends Component {
 
   closeModal = () => {
     this.setState({
+      player: false,
+      startGame: false,
+      replay: false,
+      step: 0,
+      playerStep: 0,
+      simonSequence: [],
+      animation: false,
+      wrongAnimation: false,
+      animateTile: 0,
       modalIsOpen: false
     });
+    
+    setTimeout(()=>this.handleStartGame(),1000);
   }
 
   handlePower = () => {
@@ -251,7 +262,8 @@ class App extends Component {
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
           contentLabel=''
-          style={customStyles}>
+          style={customStyles}
+          shouldCloseOnOverlayClick={false}>
           <button onClick={this.closeModal}>Close this Modal!</button>
         </Modal>
         <Tiles 
