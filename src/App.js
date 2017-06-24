@@ -59,7 +59,7 @@ class App extends Component {
       animateTile: 0,
       modalIsOpen: false
     });
-    
+
     setTimeout(()=>this.handleStartGame(),1000);
   }
 
@@ -257,7 +257,7 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="app-main-container">
         <Modal
           isOpen={this.state.modalIsOpen}
           onRequestClose={this.closeModal}
