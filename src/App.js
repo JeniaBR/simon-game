@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Tiles from './components/Tiles';
 import Controller from './components/Controller';
 import ModalBox from './components/ModalBox';
-import './App.css';
 
 let greenSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
 let redSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3');
