@@ -12,7 +12,12 @@
   background-color: rgba(0,0,0,0.4);
 }
 
+.show-model {
+  display: block;
+}
+
 .my-modal-content {
+  font-size: 3em;
   position: relative;
   background: #E06565;
   margin: auto;
@@ -38,6 +43,7 @@
   padding: 2px 16px;  
   display: flex;
   align-items: center;
+  flex-direction: column;
 }
 
 .my-modal-footer {
@@ -49,16 +55,6 @@
   max-height: 100%;
 }
 
-.img-container{
-  height: 249px;
-  width: 332px;
-}
-
-.modal-instractions{
-  display: flex;
-  flex-direction: column;
-  font-size: 1.2em;
-}
 
 .modal-instractions p {
   padding: 5px;
@@ -73,13 +69,4 @@
         width: 95%;
     }
 
-    .modal-instractions{
-        flex-direction: row;
-        font-size: 1em;
-    }
-
-    .img-container{
-        height: 239px;
-        width: 322px;
-    }
 }

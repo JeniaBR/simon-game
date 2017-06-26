@@ -258,7 +258,7 @@ class App extends Component {
   render() {
     return (
       <div className="app-main-container">
-        <ModalBox>
+        <ModalBox openModal={this.state.modalIsOpen}>
           <div>You Won!</div>
           <a className="button" onClick={this.closeModal}>Start Over</a>
         </ModalBox>
