@@ -6,14 +6,23 @@ body {
 }
 
 .button {
-  margin: 25px;
+  margin: 10px;
   background-color: tomato;
   line-height: 3em;
   text-align: center;
   color: #fff;
   text-decoration: none;
-  text-transform: uppercase;
   border-radius: .3em;
+  font-size: 1.2em;
+  width:100%;
+}
+
+.button:active {
+  transform: scale(0.9);
+}
+
+.step-counter {
+  margin: 25px;
   font-size: 1.2em;
 }
 
@@ -23,22 +32,21 @@ body {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
-  
+  margin-top: 10vh;
 }
 
 .controller-main-container {
   display: flex;
   flex-direction: column;
-  width: 230px;
+  
 }
 
 .tiles-main-container {
+  width: 80vh;
+  height: 80vh;
   display: grid;
   grid-template-columns: 10% 1fr 1fr 10%;
   grid-template-rows: 10% 1fr 1fr 10%;
-  
-  width: 80vh;
-  height: 80vh;
   background-color: #DBDEB5;
   border-radius: 5px;
 }
@@ -78,14 +86,40 @@ body {
 }
 
 @media (max-width: 768px) {
+  .app-main-container { 
+    width: 100%;
+    margin-top: 3vh;
+  }
+
   .controller-main-container {
     flex-direction: row;
     align-items: center;
-    width: inherit;
+    flex-wrap: wrap;
+  }
+
+  .button {
+    font-size: 1em;
+    padding: 0.1em;
+    width: 40%;
+  }
+}
+
+@media (max-width: 425px) {
+  
+  .controller-main-container {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .tiles-main-container {
+    width: calc(90vh - 20px);
+    height: calc(90vh - 280px);
   }
 
   .button {
     font-size: 1em;
     padding: 0.2em;
+    width: 100%;
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Modal from 'react-modal';
 import Tiles from './components/Tiles';
 import Controller from './components/Controller';
+import ModalBox from './components/ModalBox';
 import './App.css';
 
 let greenSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound1.mp3');
@@ -171,7 +171,7 @@ class App extends Component {
         wrongAnimation: false
       });
 
-    } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep === 4) {
+    } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep === 1) {
       // If you are here you won :)
       // Show a Modal with replay button
       console.log('You Won!');
@@ -258,14 +258,10 @@ class App extends Component {
   render() {
     return (
       <div className="app-main-container">
-        <Modal
-          isOpen={this.state.modalIsOpen}
-          onRequestClose={this.closeModal}
-          contentLabel=''
-          style={customStyles}
-          shouldCloseOnOverlayClick={false}>
-          <button onClick={this.closeModal}>Close this Modal!</button>
-        </Modal>
+        <ModalBox>
+          <div>You Won!</div>
+          <a className="button" onClick={this.closeModal}>Start Over</a>
+        </ModalBox>
         <Tiles 
           animateTile={this.state.animateTile}
           animate={this.state.animation}
