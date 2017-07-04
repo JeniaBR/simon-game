@@ -8,17 +8,6 @@ let redSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound2.mp3'
 let yellowSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound3.mp3');
 let blueSound = new Audio('https://s3.amazonaws.com/freecodecamp/simonSound4.mp3');
 
-const customStyles = {
-  content : {
-    top          : '50%',
-    left         : '50%',
-    right        : 'auto',
-    bottom       : 'auto',
-    marginRight  : '-50%',
-    transform    : 'translate(-50%, -50%)'
-  }
-};
-
 class App extends Component {
   constructor(){
     super();
@@ -129,11 +118,9 @@ class App extends Component {
     this.playSound(tile);
 
     if(tile !== currentSequence[currentPlayerStep]) {
-      console.log('You are wrong :(');
       // Do some animation to inform the user that he is wrong
       // if we are not in strict mode, replay the sequence to the user
       if(!this.state.strictMode) {
-        console.log('NOT STRICT','replay the sequence again');
         this.setState({
           player: false,
           animation: true,
@@ -145,7 +132,6 @@ class App extends Component {
         setTimeout(()=>this.replaySequence(),500);
       } else {
         // we are in strict mode, reset the steps, the game resets and starts again
-        console.log('STRICT','reset game, start all over');
         this.setState({
           player: false,
           power: true,
@@ -163,20 +149,17 @@ class App extends Component {
         setTimeout(()=>this.handleStartGame(),2000);
       }
     } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep < currentSequence.length - 1) {
-      console.log('correct step!');
       // we need to promote the step if user click on right tile
       this.setState({
         playerStep: currentPlayerStep + 1,
         wrongAnimation: false
       });
 
-    } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep === 1) {
+    } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep === 19) {
       // If you are here you won :)
       // Show a Modal with replay button
-      console.log('You Won!');
       this.openModal();
     } else if (tile === currentSequence[currentPlayerStep] && currentPlayerStep === currentSequence.length - 1) {
-      console.log('correct! add new random tile :)');
       // if the user accomplished correct sequence replay all the sequence + new step
       this.setState({
         player: false,
